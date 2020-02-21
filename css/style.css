@@ -1,0 +1,44 @@
+/**
+ * Baclground Image: Photo by Joanna Kosinska on Unsplash
+ */
+
+@import url(https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css);
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    line-height: 34px;
+    background: url(https://i.imgur.com/0S1ECo5.jpg) no-repeat;
+    background-position: 40% 15%;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 25vh !important;
+}
+
+.text-signature, .tip-id {
+    font-family: "Shadows Into Light";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+}
+
+.just-the-tip {
+    margin-top: 60px;
+}
+
+.text-signature {
+    transform: rotate(-20deg);
+}
+
+.tip-id {
+    font-size: 50px;
+    font-weight: bolder;
+    margin-top: 20px;
+}
+
+.footer {
+    font-size: 20px;
+}

@@ -13,8 +13,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light&display=swap" rel="stylesheet">
   
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="css/fontawesome-all.min.css" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="css/style.css" crossorigin="anonymous">
+	
+	<link rel="stylesheet" type="text/css" href="css/style.css?v=1" crossorigin="anonymous">
 	
 	<script src="https://cdn.jsdelivr.net/npm/riot@3.13/riot+compiler.min.js"></script>
   
@@ -58,17 +58,19 @@
 			<header class="masthead d-flex">
 				<div class="container text-center my-auto">
 					<div class="text-signature">Gary Gulman's Writing Tips</div>
-					<h1 class="mb-1">#{ tipId }</h1>
-					<h3 class="mb-5">
-					<em><gulman-parser text="{ justTheTip }" /></em>
+					<h1 class="mb-1 tip-id">#{ tipId }</h1>
+					<h3 class="mb-5 just-the-tip">
+						<em><gulman-parser text="{ justTheTip }" /></em>
 					</h3>
-					<p>
+					<p class="footer">
 						<a href="https://twitter.com/hashtag/GulManTip?src=hash">#GulManTip</a>
 						<a href="https://twitter.com/hashtag/WriteNow?src=hash">#WriteNow</a>
 					</p>
 					<!-- <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a> -->
 				</div>
 				<div class="overlay"></div>
+
+				<!-- Background image: Photo by Joanna Kosinska on Unsplash -->
 			</header>
 			
 			let tag = this
@@ -78,15 +80,14 @@
 		
 			let _getRandomInt = max => Math.floor(Math.random() * Math.floor(max))
 		
-			$.get("https://sheets.googleapis.com/v4/spreadsheets/1zxgIQpGKZ5g2Kzbk0Xk6WGJGBG-jNrenTRv5OBzHCo8/values/Sheet1!A1:D5?key=AIzaSyBLySbKUYIzPNpscruuGrSpnA3VeZ1sdvk", (data) => {
+			$.get("https://sheets.googleapis.com/v4/spreadsheets/1zxgIQpGKZ5g2Kzbk0Xk6WGJGBG-jNrenTRv5OBzHCo8/values/Sheet1!A1:D500?key=AIzaSyBLySbKUYIzPNpscruuGrSpnA3VeZ1sdvk", (data) => {
 				if (data && data.values) {
 					let allTips = data.values
-					let randomTipIdx = _getRandomInt(allTips.length)
-					
-					console.log(allTips)
+					let randomTipIdx = _getRandomInt(allTips.length)					
 					
 					tag.update({
-						justTheTip:  allTips[randomTipIdx][0] || "Yeah ... No."
+						justTheTip:  allTips[randomTipIdx][0] || "Yeah ... No.",
+						tipId: randomTipIdx + 1
 					})
 				}
 			})
@@ -94,7 +95,7 @@
 	</script>
 
 	<title>
-		Hello Bookk
+		Gulman Roulette // Gary Gulman's Writing Tips
 	</title>
 </head>
 
