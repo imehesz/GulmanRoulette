@@ -9,11 +9,12 @@ body {
     font-size: 24px;
     line-height: 34px;
     background: url(https://i.imgur.com/0S1ECo5.jpg) no-repeat;
-    background-position: 40% 15%;
+	background-position: 40% 15%;
+	color: rgb(75, 75, 75);
 }
 
 a, a:hover {
-    color: #9139B3;
+    color: #000;
 }
 
 .container {

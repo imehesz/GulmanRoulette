@@ -58,7 +58,7 @@
 			<header class="masthead d-flex">
 				<div class="container text-center my-auto">
 					<div class="text-signature"><a href="http://garygulman.com">Gary Gulman</a>'s Writing Tips</div>
-					<h1 class="mb-1 tip-id">#{ tipId }</h1>
+					<h1 class="mb-1 tip-id"><a href="/?tip={ displayTipId }">#{ displayTipId }</a></h1>
 					<h3 class="mb-5 just-the-tip">
 						<em><gulman-parser text="{ justTheTip }" /></em>
 					</h3>
@@ -72,25 +72,46 @@
 
 				<!-- Background image: Photo by Joanna Kosinska on Unsplash -->
 			</header>
-			
+
+			let getUrlVars = () => {
+				let vars = {}
+				let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m,key,value) => vars[key] = value)
+
+				return vars
+			}
+
 			let tag = this
 			
-			tag.tipId = 123
-			tag.justTheTip = "Go to a music concert this weekend. A singer/musician works much harder than us. The physical exertion is extraordinary. Also, every word they say rhymes for two hours. Let it inspire you to perform harder and write more intensely."
+			tag.justTheTip = ""
+			tag.tipId = getUrlVars()["tip"]
 		
-			let _getRandomInt = max => Math.floor(Math.random() * Math.floor(max))
-		
-			$.get("https://sheets.googleapis.com/v4/spreadsheets/1zxgIQpGKZ5g2Kzbk0Xk6WGJGBG-jNrenTRv5OBzHCo8/values/Sheet1!A1:D500?key=AIzaSyBLySbKUYIzPNpscruuGrSpnA3VeZ1sdvk", (data) => {
-				if (data && data.values) {
-					let allTips = data.values
-					let randomTipIdx = _getRandomInt(allTips.length)					
-					
-					tag.update({
-						justTheTip:  allTips[randomTipIdx][0] || "Yeah ... No.",
-						tipId: randomTipIdx + 1
-					})
-				}
-			})
+			// TODO implement cache
+			if (!tag.tipId) {
+				let _getRandomInt = max => Math.floor(Math.random() * Math.floor(max))
+			
+				$.get("https://sheets.googleapis.com/v4/spreadsheets/1zxgIQpGKZ5g2Kzbk0Xk6WGJGBG-jNrenTRv5OBzHCo8/values/Sheet1!A1:D500?key=AIzaSyBLySbKUYIzPNpscruuGrSpnA3VeZ1sdvk", (data) => {
+					if (data && data.values) {
+						let allTips = data.values
+						let randomTipIdx = _getRandomInt(allTips.length)					
+						
+						tag.update({
+							justTheTip:  allTips[randomTipIdx][0] || "Yeah ... No.",
+							displayTipId: randomTipIdx + 1
+						})
+					}
+				})
+			} else {
+				$.get(`https://sheets.googleapis.com/v4/spreadsheets/1zxgIQpGKZ5g2Kzbk0Xk6WGJGBG-jNrenTRv5OBzHCo8/values/Sheet1!A${tag.tipId}?key=AIzaSyBLySbKUYIzPNpscruuGrSpnA3VeZ1sdvk`, (data) => {
+					if (data && data.values) {
+						let justTheTip = data.values[0][0]
+
+						tag.update({
+							justTheTip:  justTheTip || "Yeah ... No.",
+							displayTipId: tag.tipId
+						})
+					}
+				})
+			}
 		</webapp>
 	</script>
 
