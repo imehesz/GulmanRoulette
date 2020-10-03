@@ -4,13 +4,16 @@
 
 @import url(https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css);
 
-body {
+body, html {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 24px;
     line-height: 34px;
-    background: url(https://i.imgur.com/0S1ECo5.jpg) no-repeat;
+    background: url(https://i.imgur.com/0S1ECo5.jpg) repeat-y;
 	background-position: 40% 15%;
+	background-size: 100%;
 	color: rgb(75, 75, 75);
+	margin: 0;
+	padding: 0;
 }
 
 a, a:hover {
