@@ -20,6 +20,11 @@ a, a:hover {
     color: #000;
 }
 
+
+a.next-tip, a.next-tip:hover {
+	color: #0000ff;
+}
+
 .container {
     width: 80%;
     margin: 0 auto;
