@@ -28,7 +28,7 @@ a.next-tip, a.next-tip:hover {
 .container {
     width: 80%;
     margin: 0 auto;
-    margin-top: 25vh !important;
+    margin-top: 25vh;
 }
 
 .text-signature, .tip-id {
@@ -54,4 +54,17 @@ a.next-tip, a.next-tip:hover {
 
 .footer {
     font-size: 14px;
+}
+
+@media only screen and (max-width: 960px) {
+
+	body, html {
+		background: none;
+		background-color: #e6b800;
+	}
+
+	.container {
+		margin-top: 10vh;
+	}
+
 }
