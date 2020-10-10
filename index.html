@@ -63,7 +63,8 @@
 						<em><gulman-parser text="{ justTheTip }" /></em>
 					</h3>
 					<p class="footer">
-						<a href="" class="next-tip">Next Gulman Tip</a><br/>
+						<a href="/gulmanroulette" class="next-tip">Random Gulman Tip</a> - 
+						<a href="?daily=1" class="next-tip">Daily Gulman Tip</a><br/>
 						<a href="https://twitter.com/hashtag/GulManTip?src=hash">#GulmanTip</a> -
 						<a href="https://twitter.com/hashtag/WriteNow?src=hash">#WriteNow</a>
 					</p>
@@ -85,9 +86,21 @@
 			
 			tag.justTheTip = ""
 			tag.tipId = getUrlVars()["tip"]
+			tag.daily = getUrlVars()["daily"]
 		
 			// TODO implement cache
-			if (!tag.tipId) {
+			if (tag.daily) {
+				$.get("https://imstandup.com/gulmanroulette/daily-tip.json", (data) => {
+					if (data && data.values) {
+						let justTheTip = data.values[0][0]
+
+						tag.update({
+							justTheTip:  justTheTip || "Yeah ... No.",
+							displayTipId: data.range.split(":")[1].substr(1)
+						})
+					}
+				})
+			} else if (!tag.tipId) {
 				let _getRandomInt = max => Math.floor(Math.random() * Math.floor(max))
 			
 				$.get("https://sheets.googleapis.com/v4/spreadsheets/1zxgIQpGKZ5g2Kzbk0Xk6WGJGBG-jNrenTRv5OBzHCo8/values/Sheet1!A1:D500?key=AIzaSyBLySbKUYIzPNpscruuGrSpnA3VeZ1sdvk", (data) => {
