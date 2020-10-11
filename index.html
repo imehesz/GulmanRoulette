@@ -90,7 +90,7 @@
 		
 			// TODO implement cache
 			if (tag.daily) {
-				$.get("https://imstandup.com/gulmanroulette/daily-tip.json", (data) => {
+				$.get("https://imstandup.com/gulmanroulette/daily-tip.json?v=" + (+(new Date())) , (data) => {
 					if (data && data.values) {
 						let justTheTip = data.values[0][0]
 
